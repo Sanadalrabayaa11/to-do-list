@@ -1,24 +1,31 @@
 let addProduct = document.querySelector(".add-product");
 addProduct.onsubmit = addPro;
-let checkbox = document.querySelector(".myCheckbox");
+
 function addPro(e) {
   e.preventDefault();
-  let inputValue = "";
-  let inputVlueArray = [];
+  
+  // Get the input value
+  let inputValue = document.querySelector(".inputValue").value;
 
-  inputValue = document.querySelector(".inputValue").value;
-  inputVlueArray.push(inputValue);
+  // Create HTML for the new task
   let result = `
-   <div class="test ">
-   <input type="checkbox" name="" id="" class="myCheckbox">
-   <p class="inputName"><span class="">${inputValue}</span></p>
+   <div class="test">
+     <input type="checkbox" class="myCheckbox">
+     <p class="inputName"><span>${inputValue}</span></p>
    </div>
-   `;
-  document.querySelector(".inputValueName").innerHTML += result;
-
+  `;
+  
+  // Append the new task to the list
+  document.querySelector(".inputValueName").insertAdjacentHTML('beforeend', result);
+  
+  // Clear the input field
+  document.querySelector(".inputValue").value = "";
+  
+  // Get all checkboxes
   let checkboxes = document.querySelectorAll(".myCheckbox");
-  for (let i = 0; i < checkboxes.length; i++) {
-    checkbox = checkboxes[i];
+  
+  // Add event listener to each checkbox
+  checkboxes.forEach(checkbox => {
     checkbox.addEventListener("change", function () {
       let span = checkbox.closest(".test").querySelector("span");
       if (checkbox.checked) {
@@ -27,5 +34,7 @@ function addPro(e) {
         span.classList.remove("lineText");
       }
     });
-  }
+  });
 }
+
+
